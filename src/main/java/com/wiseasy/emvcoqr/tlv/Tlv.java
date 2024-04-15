@@ -6,15 +6,15 @@ package com.wiseasy.emvcoqr.tlv;
  */
 public class Tlv {
 
-    private Integer tag;
-    private String value;
-    private Integer length;
+    private final Integer tag;
+    private final Integer length;
+    private final String value;
     private TlvArray subTlv = new TlvArray();
 
-    public Tlv(Integer tag, String value, Integer length) {
+    public Tlv(Integer tag, Integer length, String value) {
         this.tag = tag;
-        this.value = value;
         this.length = length;
+        this.value = value;
     }
 
 
@@ -24,10 +24,6 @@ public class Tlv {
 
     public Integer getLength() {
         return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
     }
 
     public TlvArray getSubTlv() {
@@ -42,16 +38,8 @@ public class Tlv {
         return tag;
     }
 
-    public void setTag(Integer tag) {
-        this.tag = tag;
-    }
-
     public String getValue() {
         return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
 

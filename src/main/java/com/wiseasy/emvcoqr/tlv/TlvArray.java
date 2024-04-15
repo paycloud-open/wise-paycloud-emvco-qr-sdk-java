@@ -50,7 +50,6 @@ public class TlvArray extends ArrayList<Tlv> {
             }
         }
 
-
         public Builder add(Integer tag, String value) {
             buffer.append(String.format("%02d", tag));
             buffer.append(String.format("%02d", value.length()));
@@ -130,10 +129,10 @@ public class TlvArray extends ArrayList<Tlv> {
             if (pos + valueLength > length) {
                 throw new EMVCoQRException("The data does not conform to the format");
             }
-            String tagValue = tlvStr.substring(pos, pos + valueLength);
-            Tlv tlv = new Tlv(Integer.parseInt(tagStr), tagValue, valueLength);
-            if (checkHasSubTlv(tagValue)) {
-                tlv.setSubTlv(parse(tagValue));
+            String value = tlvStr.substring(pos, pos + valueLength);
+            Tlv tlv = new Tlv(Integer.parseInt(tagStr), valueLength, value);
+            if (checkHasSubTlv(value)) {
+                tlv.setSubTlv(parse(value));
             }
             result.add(tlv);
             pos += valueLength;
@@ -150,19 +149,19 @@ public class TlvArray extends ArrayList<Tlv> {
         if (length <= 4) {
             return false;
         }
-        int index = 0;
-        while (index <= length) {
-            String tagStr = value.substring(index, index + 2);
-            index += 2;
+        int pos = 0;
+        while (pos <= length) {
+            String tagStr = value.substring(pos, pos + 2);
+            pos += 2;
 
-            String lengthStr = value.substring(index, index + 2);
-            index += 2;
+            String lengthStr = value.substring(pos, pos + 2);
+            pos += 2;
 
             if (isNotNumber(tagStr) || isNotNumber(lengthStr)) {
                 return false;
             }
-            index += Integer.parseInt(lengthStr);
-            if (index == length) {
+            pos += Integer.parseInt(lengthStr);
+            if (pos == length) {
                 return true;
             }
         }
