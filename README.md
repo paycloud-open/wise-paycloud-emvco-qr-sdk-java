@@ -6,4 +6,7 @@ This project is a Java SDK for quickly generating QR codes that comply with the 
 Presentation Mode)
 
 ## Example
+
 See the `EMVCoQRTest` unit test code for details
+
+<img src="qr.png" alt="example qr">
